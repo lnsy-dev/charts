@@ -69,6 +69,55 @@
   [{"x":1,"y":45},{"x":2,"y":52},{"x":3,"y":48},{"x":4,"y":61},{"x":5,"y":58},{"x":6,"y":67},{"x":7,"y":72},{"x":8,"y":69},{"x":9,"y":63},{"x":10,"y":71},{"x":11,"y":78},{"x":12,"y":82},{"x":13,"y":75},{"x":14,"y":88},{"x":15,"y":92},{"x":16,"y":86},{"x":17,"y":94},{"x":18,"y":89},{"x":19,"y":97},{"x":20,"y":103},{"x":21,"y":108},{"x":22,"y":112},{"x":23,"y":118},{"x":24,"y":125}]
   </dataroom-chart>
 
+  <h2>Advanced Scatter Plot Examples</h2>
+  <p>Demonstrating multi-dimensional data visualization with x, y, radius, and category dimensions</p>
+
+  <h3>Simple X,Y Plot: Temperature vs Ice Cream Sales</h3>
+  <dataroom-chart type="scatter" width="600" height="400">
+  [{"x":15,"y":120},{"x":18,"y":180},{"x":22,"y":240},{"x":25,"y":320},{"x":28,"y":380},{"x":32,"y":450},{"x":35,"y":520},{"x":38,"y":580},{"x":42,"y":640},{"x":45,"y":720}]
+  </dataroom-chart>
+
+  <h3>X,Y,R Plot: Marketing Spend vs Revenue with Campaign Size</h3>
+  <p>Dot size represents campaign reach (r dimension)</p>
+  <dataroom-chart type="scatter" width="600" height="400" minRadius="3" maxRadius="20">
+  [{"x":5000,"y":25000,"r":100000},{"x":8000,"y":35000,"r":150000},{"x":12000,"y":48000,"r":200000},{"x":15000,"y":62000,"r":120000},{"x":20000,"y":78000,"r":300000},{"x":25000,"y":95000,"r":250000},{"x":30000,"y":115000,"r":400000},{"x":35000,"y":128000,"r":180000},{"x":40000,"y":145000,"r":500000},{"x":45000,"y":162000,"r":350000}]
+  </dataroom-chart>
+
+  <h3>X,Y,C Plot: Sales Performance by Department</h3>
+  <p>Different colors represent departments (c dimension)</p>
+  <dataroom-chart type="scatter" width="600" height="400" radius="6">
+  [{"x":85,"y":12000,"c":"Sales"},{"x":92,"y":15000,"c":"Sales"},{"x":78,"y":9800,"c":"Sales"},{"x":88,"y":13500,"c":"Sales"},{"x":94,"y":16200,"c":"Sales"},{"x":76,"y":22000,"c":"Engineering"},{"x":82,"y":28000,"c":"Engineering"},{"x":89,"y":31000,"c":"Engineering"},{"x":91,"y":29500,"c":"Engineering"},{"x":87,"y":26800,"c":"Engineering"},{"x":65,"y":8500,"c":"Marketing"},{"x":72,"y":11200,"c":"Marketing"},{"x":68,"y":9800,"c":"Marketing"},{"x":74,"y":12800,"c":"Marketing"},{"x":71,"y":10500,"c":"Marketing"}]
+  </dataroom-chart>
+
+  <h3>X,Y,R,C Plot: Product Portfolio Analysis</h3>
+  <p>Position (profit margin vs sales volume), size (market share), color (product category)</p>
+  <dataroom-chart type="scatter" width="700" height="500" minRadius="4" maxRadius="25">
+  [{"x":15.2,"y":450000,"r":25,"c":"Software"},{"x":22.8,"y":380000,"r":18,"c":"Software"},{"x":18.5,"y":520000,"r":32,"c":"Software"},{"x":28.3,"y":290000,"r":12,"c":"Software"},{"x":35.7,"y":180000,"r":8,"c":"Software"},{"x":8.4,"y":680000,"r":45,"c":"Hardware"},{"x":12.1,"y":750000,"r":38,"c":"Hardware"},{"x":6.8,"y":920000,"r":52,"c":"Hardware"},{"x":10.3,"y":580000,"r":28,"c":"Hardware"},{"x":14.7,"y":420000,"r":22,"c":"Hardware"},{"x":42.5,"y":125000,"r":15,"c":"Services"},{"x":38.9,"y":165000,"r":20,"c":"Services"},{"x":45.2,"y":98000,"r":12,"c":"Services"},{"x":41.8,"y":145000,"r":18,"c":"Services"},{"x":48.1,"y":85000,"r":10,"c":"Services"}]
+  </dataroom-chart>
+
+  <h2>Monochrome Advanced Scatter Plots</h2>
+  <p>Same multi-dimensional data using patterns for print-friendly and accessible visualization</p>
+
+  <h3>Monochrome X,Y Plot: Simple Black Dots</h3>
+  <dataroom-chart type="scatter" width="600" height="400" monochrome="true">
+  [{"x":15,"y":120},{"x":18,"y":180},{"x":22,"y":240},{"x":25,"y":320},{"x":28,"y":380},{"x":32,"y":450},{"x":35,"y":520},{"x":38,"y":580},{"x":42,"y":640},{"x":45,"y":720}]
+  </dataroom-chart>
+
+  <h3>Monochrome X,Y,R Plot: Variable-Sized Black Dots</h3>
+  <dataroom-chart type="scatter" width="600" height="400" minRadius="3" maxRadius="18" monochrome="true">
+  [{"x":5000,"y":25000,"r":100000},{"x":8000,"y":35000,"r":150000},{"x":12000,"y":48000,"r":200000},{"x":15000,"y":62000,"r":120000},{"x":20000,"y":78000,"r":300000},{"x":25000,"y":95000,"r":250000},{"x":30000,"y":115000,"r":400000},{"x":35000,"y":128000,"r":180000}]
+  </dataroom-chart>
+
+  <h3>Monochrome X,Y,C Plot: Pattern-Filled Dots by Category</h3>
+  <dataroom-chart type="scatter" width="600" height="400" radius="7" monochrome="true">
+  [{"x":85,"y":12000,"c":"Sales"},{"x":92,"y":15000,"c":"Sales"},{"x":78,"y":9800,"c":"Sales"},{"x":88,"y":13500,"c":"Sales"},{"x":76,"y":22000,"c":"Engineering"},{"x":82,"y":28000,"c":"Engineering"},{"x":89,"y":31000,"c":"Engineering"},{"x":91,"y":29500,"c":"Engineering"},{"x":65,"y":8500,"c":"Marketing"},{"x":72,"y":11200,"c":"Marketing"},{"x":68,"y":9800,"c":"Marketing"},{"x":74,"y":12800,"c":"Marketing"}]
+  </dataroom-chart>
+
+  <h3>Monochrome X,Y,R,C Plot: Full Multi-Dimensional with Patterns</h3>
+  <dataroom-chart type="scatter" width="700" height="500" minRadius="5" maxRadius="22" monochrome="true">
+  [{"x":15.2,"y":450000,"r":25,"c":"Software"},{"x":22.8,"y":380000,"r":18,"c":"Software"},{"x":18.5,"y":520000,"r":32,"c":"Software"},{"x":28.3,"y":290000,"r":12,"c":"Software"},{"x":8.4,"y":680000,"r":45,"c":"Hardware"},{"x":12.1,"y":750000,"r":38,"c":"Hardware"},{"x":6.8,"y":920000,"r":52,"c":"Hardware"},{"x":10.3,"y":580000,"r":28,"c":"Hardware"},{"x":42.5,"y":125000,"r":15,"c":"Services"},{"x":38.9,"y":165000,"r":20,"c":"Services"},{"x":45.2,"y":98000,"r":12,"c":"Services"},{"x":41.8,"y":145000,"r":18,"c":"Services"}]
+  </dataroom-chart>
+
   <h2>Donut Charts</h2>
   
   <h3>Revenue by Product Category</h3>

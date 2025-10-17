@@ -216,6 +216,7 @@ class DataroomChart extends DataroomElement {
 
   /**
    * Renders a scatter plot using D3
+   * Supports x,y coordinates with optional r (radius) and c (color/category) dimensions
    * @returns {void}
    */
   renderScatterPlot(){
@@ -231,6 +232,10 @@ class DataroomChart extends DataroomElement {
     const chartWidth = width - margin.left - margin.right;
     const chartHeight = height - margin.top - margin.bottom;
     
+    // Analyze data structure to determine available dimensions
+    const hasRadius = data.some(d => d.r !== undefined && d.r !== null);
+    const hasColor = data.some(d => d.c !== undefined && d.c !== null);
+    
     // Update SVG dimensions
     this.container.setAttribute("width", width);
     this.container.setAttribute("height", height);
@@ -240,7 +245,7 @@ class DataroomChart extends DataroomElement {
     const g = svg.append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
     
-    // Scales
+    // Position scales
     const xScale = d3.scaleLinear()
       .domain(d3.extent(data, d => d.x))
       .range([0, chartWidth]);
@@ -249,6 +254,41 @@ class DataroomChart extends DataroomElement {
       .domain(d3.extent(data, d => d.y))
       .range([chartHeight, 0]);
     
+    // Radius scale (if r dimension exists)
+    let radiusScale;
+    if (hasRadius) {
+      const radiusExtent = d3.extent(data, d => d.r);
+      const minRadius = parseInt(this.attrs.minRadius) || 2;
+      const maxRadius = parseInt(this.attrs.maxRadius) || 15;
+      radiusScale = d3.scaleLinear()
+        .domain(radiusExtent)
+        .range([minRadius, maxRadius]);
+    }
+    
+    // Color scale (if c dimension exists)
+    let colorScale;
+    let colorValues = [];
+    if (hasColor) {
+      const uniqueColors = [...new Set(data.map(d => d.c))];
+      
+      if (this.isMonochrome) {
+        // For monochrome mode with categories, use patterns
+        for (let i = 0; i < uniqueColors.length; i++) {
+          colorValues.push(this.getFillValue(i));
+        }
+      } else {
+        // For color mode, use color palette
+        const colorPalette = this.getColorPalette();
+        for (let i = 0; i < uniqueColors.length; i++) {
+          colorValues.push(colorPalette[i % colorPalette.length]);
+        }
+      }
+      
+      colorScale = d3.scaleOrdinal()
+        .domain(uniqueColors)
+        .range(colorValues);
+    }
+    
     // Add dots
     g.selectAll(".dot")
       .data(data)
@@ -256,10 +296,31 @@ class DataroomChart extends DataroomElement {
       .attr("class", "dot")
       .attr("cx", d => xScale(d.x))
       .attr("cy", d => yScale(d.y))
-      .attr("r", this.attrs.radius || 5)
-      .attr("fill", this.isMonochrome ? "black" : this.getColor())
-      .attr("stroke", this.isMonochrome ? "none" : "none")
-      .attr("stroke-width", 0)
+      .attr("r", d => {
+        if (hasRadius) {
+          return radiusScale(d.r);
+        }
+        return this.attrs.radius || 5;
+      })
+      .attr("fill", d => {
+        if (hasColor) {
+          return colorScale(d.c);
+        }
+        return this.isMonochrome ? "black" : this.getColor();
+      })
+      .attr("stroke", d => {
+        // Add stroke for pattern fills in monochrome mode with categories
+        if (this.isMonochrome && hasColor) {
+          return this.monochromeColors.foreground;
+        }
+        return "none";
+      })
+      .attr("stroke-width", d => {
+        if (this.isMonochrome && hasColor) {
+          return 1;
+        }
+        return 0;
+      })
       .attr("opacity", this.isMonochrome ? 1 : 0.7);
     
     // Add axes
