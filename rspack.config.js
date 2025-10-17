@@ -7,7 +7,7 @@ module.exports = {
   entry: './index.js',
   mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
   output: {
-    filename: process.env.OUTPUT_FILE_NAME || 'main.min.js',
+    filename: process.env.OUTPUT_FILE_NAME || 'dataroom-charts.min.js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {

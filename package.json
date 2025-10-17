@@ -1,7 +1,7 @@
 {
-  "name": "pochade-js",
-  "version": "0.0.1",
-  "description": "A context engineering boilerplate for generating custom HTML Elements",
+  "name": "dataroom-charts",
+  "version": "0.0.2",
+  "description": "Vanilla HTML Components for generating charts.",
   "main": "dist/main.js",
   "repository": {
     "type": "git",
