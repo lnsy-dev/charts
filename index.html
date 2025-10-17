@@ -118,6 +118,75 @@
   [{"x":15.2,"y":450000,"r":25,"c":"Software"},{"x":22.8,"y":380000,"r":18,"c":"Software"},{"x":18.5,"y":520000,"r":32,"c":"Software"},{"x":28.3,"y":290000,"r":12,"c":"Software"},{"x":8.4,"y":680000,"r":45,"c":"Hardware"},{"x":12.1,"y":750000,"r":38,"c":"Hardware"},{"x":6.8,"y":920000,"r":52,"c":"Hardware"},{"x":10.3,"y":580000,"r":28,"c":"Hardware"},{"x":42.5,"y":125000,"r":15,"c":"Services"},{"x":38.9,"y":165000,"r":20,"c":"Services"},{"x":45.2,"y":98000,"r":12,"c":"Services"},{"x":41.8,"y":145000,"r":18,"c":"Services"}]
   </dataroom-chart>
 
+  <h2>Line Graphs</h2>
+  <p>Line graphs connect data points to show trends and patterns over time or continuous variables</p>
+  
+  <h3>Monthly Revenue Trend</h3>
+  <dataroom-chart type="line-graph" width="700" height="400" line-width="3">
+  [{"x":1,"y":45000},{"x":2,"y":52000},{"x":3,"y":48000},{"x":4,"y":61000},{"x":5,"y":58000},{"x":6,"y":67000},{"x":7,"y":72000},{"x":8,"y":69000},{"x":9,"y":63000},{"x":10,"y":71000},{"x":11,"y":78000},{"x":12,"y":82000}]
+  </dataroom-chart>
+
+  <h3>Stock Price Performance</h3>
+  <dataroom-chart type="line" width="600" height="400" line-width="2" radius="3">
+  [{"x":1,"y":125.50},{"x":2,"y":128.75},{"x":3,"y":132.25},{"x":4,"y":129.80},{"x":5,"y":135.60},{"x":6,"y":142.30},{"x":7,"y":138.95},{"x":8,"y":145.20},{"x":9,"y":152.80},{"x":10,"y":149.65},{"x":11,"y":156.40},{"x":12,"y":163.85},{"x":13,"y":159.70},{"x":14,"y":167.25},{"x":15,"y":174.90}]
+  </dataroom-chart>
+
+  <h3>Website Traffic vs Conversion Rate</h3>
+  <dataroom-chart type="linegraph" width="650" height="400" line-width="2" radius="4">
+  [{"x":1200,"y":2.3},{"x":1450,"y":2.8},{"x":1800,"y":3.1},{"x":2100,"y":2.9},{"x":2350,"y":3.4},{"x":2600,"y":3.7},{"x":2900,"y":3.2},{"x":3200,"y":3.9},{"x":3500,"y":4.1},{"x":3800,"y":3.8},{"x":4100,"y":4.3},{"x":4400,"y":4.6}]
+  </dataroom-chart>
+
+  <h2>Multi-Series Line Graphs</h2>
+  <p>Comparing multiple data series with different categories using the 'c' dimension</p>
+
+  <h3>Department Performance Over Time</h3>
+  <dataroom-chart type="line-graph" width="700" height="450" line-width="2" radius="5">
+  [{"x":1,"y":85000,"c":"Sales"},{"x":2,"y":92000,"c":"Sales"},{"x":3,"y":88000,"c":"Sales"},{"x":4,"y":95000,"c":"Sales"},{"x":5,"y":102000,"c":"Sales"},{"x":6,"y":108000,"c":"Sales"},{"x":1,"y":65000,"c":"Marketing"},{"x":2,"y":68000,"c":"Marketing"},{"x":3,"y":72000,"c":"Marketing"},{"x":4,"y":75000,"c":"Marketing"},{"x":5,"y":78000,"c":"Marketing"},{"x":6,"y":82000,"c":"Marketing"},{"x":1,"y":120000,"c":"Engineering"},{"x":2,"y":125000,"c":"Engineering"},{"x":3,"y":132000,"c":"Engineering"},{"x":4,"y":128000,"c":"Engineering"},{"x":5,"y":135000,"c":"Engineering"},{"x":6,"y":142000,"c":"Engineering"}]
+  </dataroom-chart>
+
+  <h3>Product Sales Comparison</h3>
+  <dataroom-chart type="line" width="650" height="400" line-width="3" radius="4">
+  [{"x":1,"y":1200,"c":"Product A"},{"x":2,"y":1350,"c":"Product A"},{"x":3,"y":1480,"c":"Product A"},{"x":4,"y":1620,"c":"Product A"},{"x":5,"y":1750,"c":"Product A"},{"x":6,"y":1890,"c":"Product A"},{"x":1,"y":800,"c":"Product B"},{"x":2,"y":920,"c":"Product B"},{"x":3,"y":1050,"c":"Product B"},{"x":4,"y":1180,"c":"Product B"},{"x":5,"y":1320,"c":"Product B"},{"x":6,"y":1450,"c":"Product B"},{"x":1,"y":500,"c":"Product C"},{"x":2,"y":580,"c":"Product C"},{"x":3,"y":650,"c":"Product C"},{"x":4,"y":720,"c":"Product C"},{"x":5,"y":800,"c":"Product C"},{"x":6,"y":880,"c":"Product C"}]
+  </dataroom-chart>
+
+  <h3>Temperature Sensors by Location</h3>
+  <dataroom-chart type="line-graph" width="700" height="400" line-width="2" radius="3">
+  [{"x":0,"y":22.1,"c":"Sensor A"},{"x":1,"y":22.8,"c":"Sensor A"},{"x":2,"y":23.2,"c":"Sensor A"},{"x":3,"y":24.1,"c":"Sensor A"},{"x":4,"y":25.3,"c":"Sensor A"},{"x":5,"y":26.8,"c":"Sensor A"},{"x":6,"y":27.9,"c":"Sensor A"},{"x":7,"y":28.5,"c":"Sensor A"},{"x":8,"y":27.2,"c":"Sensor A"},{"x":0,"y":18.5,"c":"Sensor B"},{"x":1,"y":19.2,"c":"Sensor B"},{"x":2,"y":20.1,"c":"Sensor B"},{"x":3,"y":21.8,"c":"Sensor B"},{"x":4,"y":22.9,"c":"Sensor B"},{"x":5,"y":24.2,"c":"Sensor B"},{"x":6,"y":25.1,"c":"Sensor B"},{"x":7,"y":24.8,"c":"Sensor B"},{"x":8,"y":23.6,"c":"Sensor B"},{"x":0,"y":25.8,"c":"Sensor C"},{"x":1,"y":26.2,"c":"Sensor C"},{"x":2,"y":27.1,"c":"Sensor C"},{"x":3,"y":28.5,"c":"Sensor C"},{"x":4,"y":29.8,"c":"Sensor C"},{"x":5,"y":31.2,"c":"Sensor C"},{"x":6,"y":32.1,"c":"Sensor C"},{"x":7,"y":31.8,"c":"Sensor C"},{"x":8,"y":30.5,"c":"Sensor C"}]
+  </dataroom-chart>
+
+  <h2>Advanced Line Graph Examples</h2>
+  <p>Line graphs with variable point sizes and multi-dimensional data</p>
+
+  <h3>Marketing Campaign Performance with Budget</h3>
+  <p>Line shows conversion rate over time, point size represents campaign budget (r dimension)</p>
+  <dataroom-chart type="line-graph" width="700" height="400" line-width="2" min-radius="3" max-radius="15">
+  [{"x":1,"y":2.3,"r":5000},{"x":2,"y":2.8,"r":7500},{"x":3,"y":3.1,"r":12000},{"x":4,"y":2.9,"r":8000},{"x":5,"y":3.4,"r":15000},{"x":6,"y":3.7,"r":18000},{"x":7,"y":3.2,"r":10000},{"x":8,"y":3.9,"r":22000},{"x":9,"y":4.1,"r":25000},{"x":10,"y":3.8,"r":20000}]
+  </dataroom-chart>
+
+  <h3>Multi-Dimensional Sales Analysis</h3>
+  <p>Revenue trends by quarter with market share (size) and product category (color)</p>
+  <dataroom-chart type="line" width="750" height="500" line-width="2" min-radius="4" max-radius="20">
+  [{"x":1,"y":450000,"r":25,"c":"Software"},{"x":2,"y":520000,"r":28,"c":"Software"},{"x":3,"y":480000,"r":32,"c":"Software"},{"x":4,"y":580000,"r":35,"c":"Software"},{"x":1,"y":680000,"r":45,"c":"Hardware"},{"x":2,"y":750000,"r":42,"c":"Hardware"},{"x":3,"y":720000,"r":40,"c":"Hardware"},{"x":4,"y":820000,"r":48,"c":"Hardware"},{"x":1,"y":125000,"r":15,"c":"Services"},{"x":2,"y":145000,"r":18,"c":"Services"},{"x":3,"y":165000,"r":20,"c":"Services"},{"x":4,"y":185000,"r":22,"c":"Services"}]
+  </dataroom-chart>
+
+  <h2>Monochrome Line Graphs</h2>
+  <p>Print-friendly line graphs using patterns for accessibility</p>
+
+  <h3>Monochrome Single Series</h3>
+  <dataroom-chart type="line-graph" width="600" height="400" line-width="2" radius="4" monochrome="true">
+  [{"x":1,"y":45000},{"x":2,"y":52000},{"x":3,"y":48000},{"x":4,"y":61000},{"x":5,"y":58000},{"x":6,"y":67000},{"x":7,"y":72000},{"x":8,"y":69000},{"x":9,"y":63000},{"x":10,"y":71000},{"x":11,"y":78000},{"x":12,"y":82000}]
+  </dataroom-chart>
+
+  <h3>Monochrome Multi-Series with Patterns</h3>
+  <dataroom-chart type="line" width="700" height="450" line-width="2" radius="6" monochrome="true">
+  [{"x":1,"y":85000,"c":"Sales"},{"x":2,"y":92000,"c":"Sales"},{"x":3,"y":88000,"c":"Sales"},{"x":4,"y":95000,"c":"Sales"},{"x":5,"y":102000,"c":"Sales"},{"x":6,"y":108000,"c":"Sales"},{"x":1,"y":65000,"c":"Marketing"},{"x":2,"y":68000,"c":"Marketing"},{"x":3,"y":72000,"c":"Marketing"},{"x":4,"y":75000,"c":"Marketing"},{"x":5,"y":78000,"c":"Marketing"},{"x":6,"y":82000,"c":"Marketing"},{"x":1,"y":120000,"c":"Engineering"},{"x":2,"y":125000,"c":"Engineering"},{"x":3,"y":132000,"c":"Engineering"},{"x":4,"y":128000,"c":"Engineering"},{"x":5,"y":135000,"c":"Engineering"},{"x":6,"y":142000,"c":"Engineering"}]
+  </dataroom-chart>
+
+  <h3>Monochrome Variable Size Points</h3>
+  <dataroom-chart type="line-graph" width="650" height="400" line-width="2" min-radius="3" max-radius="12" monochrome="true">
+  [{"x":1,"y":2.3,"r":5000},{"x":2,"y":2.8,"r":7500},{"x":3,"y":3.1,"r":12000},{"x":4,"y":2.9,"r":8000},{"x":5,"y":3.4,"r":15000},{"x":6,"y":3.7,"r":18000},{"x":7,"y":3.2,"r":10000},{"x":8,"y":3.9,"r":22000}]
+  </dataroom-chart>
+
   <h2>Donut Charts</h2>
   
   <h3>Revenue by Product Category</h3>
@@ -226,6 +295,13 @@
       <h4>Donut Chart</h4>
       <dataroom-chart type="donut" width="300" height="300" monochrome="true">
       [{"label":"Q1","value":120},{"label":"Q2","value":135},{"label":"Q3","value":148},{"label":"Q4","value":162}]
+      </dataroom-chart>
+    </div>
+    
+    <div>
+      <h4>Line Graph</h4>
+      <dataroom-chart type="line-graph" width="350" height="250" line-width="2" radius="4" monochrome="true">
+      [{"x":1,"y":120},{"x":2,"y":135},{"x":3,"y":148},{"x":4,"y":162}]
       </dataroom-chart>
     </div>
   </div>

@@ -42,6 +42,11 @@ class DataroomChart extends DataroomElement {
     case "scatterchart":
       this.renderScatterPlot();
       break;
+    case "line":
+    case "line-graph":
+    case "linegraph":
+      this.renderLineGraph();
+      break;
     case "donut":
     case "donutchart":
       this.renderDonutChart();
@@ -322,6 +327,161 @@ class DataroomChart extends DataroomElement {
         return 0;
       })
       .attr("opacity", this.isMonochrome ? 1 : 0.7);
+    
+    // Add axes
+    g.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", `translate(0,${chartHeight})`)
+      .call(d3.axisBottom(xScale));
+      
+    g.append("g")
+      .attr("class", "y-axis")
+      .call(d3.axisLeft(yScale));
+  }
+
+  /**
+   * Renders a line graph using D3
+   * Extends scatter plot functionality by drawing connecting lines based on data sequence
+   * Supports x,y coordinates with optional r (radius) and c (color/category) dimensions
+   * @returns {void}
+   */
+  renderLineGraph(){
+    const data = this.getData();
+    if (!data || data.length === 0) {
+      this.renderError("No data provided for line graph");
+      return;
+    }
+    const width = parseInt(this.attrs.width) || 400;
+    const height = parseInt(this.attrs.height) || 400;
+    const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+    
+    const chartWidth = width - margin.left - margin.right;
+    const chartHeight = height - margin.top - margin.bottom;
+    
+    // Analyze data structure to determine available dimensions
+    const hasRadius = data.some(d => d.r !== undefined && d.r !== null);
+    const hasColor = data.some(d => d.c !== undefined && d.c !== null);
+    
+    // Update SVG dimensions
+    this.container.setAttribute("width", width);
+    this.container.setAttribute("height", height);
+    this.container.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    
+    const svg = d3.select(this.container);
+    const g = svg.append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+    
+    // Position scales
+    const xScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.x))
+      .range([0, chartWidth]);
+      
+    const yScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.y))
+      .range([chartHeight, 0]);
+    
+    // Radius scale (if r dimension exists)
+    let radiusScale;
+    if (hasRadius) {
+      const radiusExtent = d3.extent(data, d => d.r);
+      const minRadius = parseInt(this.attrs.minRadius) || 2;
+      const maxRadius = parseInt(this.attrs.maxRadius) || 15;
+      radiusScale = d3.scaleLinear()
+        .domain(radiusExtent)
+        .range([minRadius, maxRadius]);
+    }
+    
+    // Color scale (if c dimension exists)
+    let colorScale;
+    let colorValues = [];
+    if (hasColor) {
+      const uniqueColors = [...new Set(data.map(d => d.c))];
+      
+      if (this.isMonochrome) {
+        // For monochrome mode with categories, use patterns
+        for (let i = 0; i < uniqueColors.length; i++) {
+          colorValues.push(this.getFillValue(i));
+        }
+      } else {
+        // For color mode, use color palette
+        const colorPalette = this.getColorPalette();
+        for (let i = 0; i < uniqueColors.length; i++) {
+          colorValues.push(colorPalette[i % colorPalette.length]);
+        }
+      }
+      
+      colorScale = d3.scaleOrdinal()
+        .domain(uniqueColors)
+        .range(colorValues);
+    }
+    
+    // Group data by category if color dimension exists, otherwise treat as single series
+    let groupedData;
+    if (hasColor) {
+      groupedData = d3.group(data, d => d.c);
+    } else {
+      groupedData = new Map([['default', data]]);
+    }
+    
+    // Line generator
+    const line = d3.line()
+      .x(d => xScale(d.x))
+      .y(d => yScale(d.y))
+      .curve(d3.curveLinear);
+    
+    // Add lines for each group/category
+    groupedData.forEach((groupData, category) => {
+      // Sort data points by x value to ensure proper line connection
+      const sortedData = [...groupData].sort((a, b) => a.x - b.x);
+      
+      const lineColor = hasColor ? 
+        (this.isMonochrome ? this.monochromeColors.foreground : colorScale(category)) :
+        (this.isMonochrome ? this.monochromeColors.foreground : this.getColor());
+      
+      g.append("path")
+        .datum(sortedData)
+        .attr("class", "line")
+        .attr("fill", "none")
+        .attr("stroke", lineColor)
+        .attr("stroke-width", this.attrs.lineWidth || 2)
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("d", line);
+    });
+    
+    // Add dots (points) - similar to scatter plot
+    g.selectAll(".dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("class", "dot")
+      .attr("cx", d => xScale(d.x))
+      .attr("cy", d => yScale(d.y))
+      .attr("r", d => {
+        if (hasRadius) {
+          return radiusScale(d.r);
+        }
+        return this.attrs.radius || 4;
+      })
+      .attr("fill", d => {
+        if (hasColor) {
+          return colorScale(d.c);
+        }
+        return this.isMonochrome ? "black" : this.getColor();
+      })
+      .attr("stroke", d => {
+        // Add stroke for pattern fills in monochrome mode with categories
+        if (this.isMonochrome && hasColor) {
+          return this.monochromeColors.foreground;
+        }
+        return "white";
+      })
+      .attr("stroke-width", d => {
+        if (this.isMonochrome && hasColor) {
+          return 1;
+        }
+        return 1;
+      })
+      .attr("opacity", 1);
     
     // Add axes
     g.append("g")
