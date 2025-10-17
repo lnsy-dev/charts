@@ -103,5 +103,83 @@
   [{"label":"North America","value":12.5},{"label":"Europe","value":8.3},{"label":"Asia Pacific","value":15.7},{"label":"Latin America","value":6.2},{"label":"Middle East","value":9.8},{"label":"Africa","value":11.4}]
   </dataroom-chart>
 
+  <h2>Monochrome Pattern Examples</h2>
+  <p>Charts using cross-hatching patterns instead of colors for accessibility and print-friendly display</p>
+  
+  <h3>Monochrome Bar Chart (Vertical)</h3>
+  <dataroom-chart type="bar" width="600" height="400" monochrome="true">
+  [{"label":"Q1","value":125000},{"label":"Q2","value":156000},{"label":"Q3","value":189000},{"label":"Q4","value":203000},{"label":"Q5","value":178000},{"label":"Q6","value":145000}]
+  </dataroom-chart>
+
+  <h3>Monochrome Bar Chart (Horizontal)</h3>
+  <dataroom-chart type="bar" width="700" height="350" orientation="horizontal" monochrome="true">
+  [{"label":"Engineering","value":850000},{"label":"Sales","value":620000},{"label":"Marketing","value":480000},{"label":"HR","value":320000},{"label":"Operations","value":290000},{"label":"Finance","value":180000}]
+  </dataroom-chart>
+
+  <h3>Monochrome Scatter Plot</h3>
+  <dataroom-chart type="scatter" width="600" height="400" radius="6" monochrome="true">
+  [{"x":29.99,"y":1250},{"x":49.99,"y":980},{"x":79.99,"y":750},{"x":99.99,"y":620},{"x":129.99,"y":480},{"x":159.99,"y":390},{"x":199.99,"y":280},{"x":249.99,"y":220},{"x":299.99,"y":180},{"x":399.99,"y":120},{"x":499.99,"y":85},{"x":699.99,"y":45}]
+  </dataroom-chart>
+
+  <h3>Monochrome Donut Chart</h3>
+  <dataroom-chart type="donut" width="500" height="500" labels="true" monochrome="true">
+  [{"label":"Software","value":2400000},{"label":"Hardware","value":1800000},{"label":"Services","value":1200000},{"label":"Training","value":600000},{"label":"Support","value":400000},{"label":"Consulting","value":800000},{"label":"Maintenance","value":300000},{"label":"Licensing","value":500000}]
+  </dataroom-chart>
+
+  <h3>Monochrome Multi-Series Bar Chart (Default Cross-Hatching)</h3>
+  <dataroom-chart type="bar" width="800" height="400" monochrome="true">
+  [{"label":"Jan","value":45200},{"label":"Feb","value":52100},{"label":"Mar","value":48900},{"label":"Apr","value":61500},{"label":"May","value":58700},{"label":"Jun","value":67300},{"label":"Jul","value":72800},{"label":"Aug","value":69400},{"label":"Sep","value":63200},{"label":"Oct","value":71600},{"label":"Nov","value":78900},{"label":"Dec","value":82300}]
+  </dataroom-chart>
+
+
+  <h2>Monochrome Pattern Examples</h2>
+  <p>Simple diagonal pattern examples for print-friendly and accessible charts</p>
+  
+  <h3>Multi-Series Bar Chart</h3>
+  <dataroom-chart type="bar" width="700" height="300" monochrome="true">
+  [{"label":"Series 1","value":45},{"label":"Series 2","value":67},{"label":"Series 3","value":52},{"label":"Series 4","value":78},{"label":"Series 5","value":34},{"label":"Series 6","value":89},{"label":"Series 7","value":23},{"label":"Series 8","value":56}]
+  </dataroom-chart>
+
+  <h3>Monochrome Donut Chart</h3>
+  <dataroom-chart type="donut" width="400" height="400" monochrome="true">
+  [{"label":"A","value":25},{"label":"B","value":30},{"label":"C","value":20},{"label":"D","value":15},{"label":"E","value":10}]
+  </dataroom-chart>
+
+  <h3>Monochrome Scatter Plot</h3>
+  <dataroom-chart type="scatter" width="600" height="350" monochrome="true" radius="4">
+  [{"x":10,"y":25},{"x":20,"y":45},{"x":30,"y":35},{"x":40,"y":65},{"x":50,"y":55},{"x":60,"y":75},{"x":70,"y":85},{"x":80,"y":70},{"x":90,"y":95},{"x":100,"y":80}]
+  </dataroom-chart>
+
+  <h3>Horizontal Bar Chart</h3>
+  <dataroom-chart type="bar" width="650" height="300" orientation="horizontal" monochrome="true">
+  [{"label":"Marketing","value":850},{"label":"Sales","value":920},{"label":"Engineering","value":780},{"label":"Support","value":650},{"label":"HR","value":480}]
+  </dataroom-chart>
+
+  <h3>Chart Type Comparison</h3>
+  <p>Same data displayed across different chart types</p>
+  
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-around;">
+    <div>
+      <h4>Bar Chart</h4>
+      <dataroom-chart type="bar" width="350" height="250" monochrome="true">
+      [{"label":"Q1","value":120},{"label":"Q2","value":135},{"label":"Q3","value":148},{"label":"Q4","value":162}]
+      </dataroom-chart>
+    </div>
+    
+    <div>
+      <h4>Horizontal Bar</h4>
+      <dataroom-chart type="bar" width="350" height="250" orientation="horizontal" monochrome="true">
+      [{"label":"Q1","value":120},{"label":"Q2","value":135},{"label":"Q3","value":148},{"label":"Q4","value":162}]
+      </dataroom-chart>
+    </div>
+    
+    <div>
+      <h4>Donut Chart</h4>
+      <dataroom-chart type="donut" width="300" height="300" monochrome="true">
+      [{"label":"Q1","value":120},{"label":"Q2","value":135},{"label":"Q3","value":148},{"label":"Q4","value":162}]
+      </dataroom-chart>
+    </div>
+  </div>
+
 </body>
 </html>

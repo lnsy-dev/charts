@@ -1,5 +1,6 @@
 import DataroomElement from 'dataroom-js';
 import * as d3 from "d3";
+import { createPattern, getPatternByIndex } from './monochrome-patterns.js';
 
 
 class DataroomChart extends DataroomElement {
@@ -16,6 +17,15 @@ class DataroomChart extends DataroomElement {
     svgElement.setAttribute("viewBox", "0 0 400 400"); // for responsive scaling
 
     this.container = svgElement;
+    this.svgNamespace = svgNamespace;
+    
+    // Check if monochrome mode is enabled
+    this.isMonochrome = this.attrs.monochrome === 'true' || this.attrs.monochrome === '';
+    
+    // Setup patterns if monochrome mode is enabled
+    if (this.isMonochrome) {
+      this.setupPatterns();
+    }
     
     // Format content as code block if it contains JSON
     this.formatContent();
@@ -39,6 +49,72 @@ class DataroomChart extends DataroomElement {
     default:
       this.renderError("No Chart Type Set");
     }
+  }
+
+  /**
+   * Sets up SVG pattern definitions for monochrome mode
+   * @returns {void}
+   */
+  setupPatterns() {
+    const defs = document.createElementNS(this.svgNamespace, 'defs');
+    this.container.appendChild(defs);
+    
+    // Get computed colors from the element's context
+    const computedStyle = getComputedStyle(this);
+    const foregroundColor = computedStyle.color || 'black';
+    const backgroundColor = computedStyle.backgroundColor || 'white';
+    
+    // If background is transparent, try to get from parent or use white
+    let bgColor = backgroundColor;
+    if (backgroundColor === 'rgba(0, 0, 0, 0)' || backgroundColor === 'transparent') {
+      const parentStyle = getComputedStyle(this.parentElement || document.body);
+      bgColor = parentStyle.backgroundColor || 'white';
+    }
+    
+    // Create pattern definitions for different data series
+    this.patterns = [];
+    const maxPatterns = 12; // Match the number of color palette items
+    
+    for (let i = 0; i < maxPatterns; i++) {
+      const patternConfig = getPatternByIndex(i, 'default'); // Always use default diagonal pattern
+      const patternId = `pattern-${i}`;
+      const pattern = createPattern(
+        patternId,
+        patternConfig.type,
+        patternConfig.spacing,
+        patternConfig.strokeWidth,
+        foregroundColor,
+        bgColor
+      );
+      defs.appendChild(pattern);
+      this.patterns.push(patternId);
+    }
+    
+    // Store colors for later use in strokes
+    this.monochromeColors = {
+      foreground: foregroundColor,
+      background: bgColor
+    };
+  }
+
+  /**
+   * Gets fill value - either pattern URL for monochrome mode or color
+   * @param {number} index - Index for pattern/color selection
+   * @param {string} customColor - Custom color override
+   * @returns {string} Fill value (pattern URL or color)
+   */
+  getFillValue(index, customColor = null) {
+    if (this.isMonochrome) {
+      const patternId = this.patterns[index % this.patterns.length];
+      return `url(#${patternId})`;
+    }
+    
+    if (customColor) {
+      return customColor;
+    }
+    
+    const colorPalette = this.getColorPalette();
+    return this.attrs.color || colorPalette[index % colorPalette.length];
   }
 
   /**
@@ -81,7 +157,6 @@ class DataroomChart extends DataroomElement {
         .padding(0.1);
         
       // Add bars
-      const colorPalette = this.getColorPalette();
       g.selectAll(".bar")
         .data(data)
         .enter().append("rect")
@@ -90,7 +165,9 @@ class DataroomChart extends DataroomElement {
         .attr("y", d => yScale(d.label))
         .attr("width", d => xScale(d.value))
         .attr("height", yScale.bandwidth())
-        .attr("fill", (d, i) => d.color || this.attrs.color || colorPalette[i % colorPalette.length]);
+        .attr("fill", (d, i) => this.getFillValue(i, d.color))
+        .attr("stroke", this.isMonochrome ? this.monochromeColors.foreground : "none")
+        .attr("stroke-width", this.isMonochrome ? 1 : 0);
         
       // Add axes
       g.append("g")
@@ -113,7 +190,6 @@ class DataroomChart extends DataroomElement {
         .range([chartHeight, 0]);
         
       // Add bars
-      const colorPalette = this.getColorPalette();
       g.selectAll(".bar")
         .data(data)
         .enter().append("rect")
@@ -122,7 +198,9 @@ class DataroomChart extends DataroomElement {
         .attr("y", d => yScale(d.value))
         .attr("width", xScale.bandwidth())
         .attr("height", d => chartHeight - yScale(d.value))
-        .attr("fill", (d, i) => d.color || this.attrs.color || colorPalette[i % colorPalette.length]);
+        .attr("fill", (d, i) => this.getFillValue(i, d.color))
+        .attr("stroke", this.isMonochrome ? this.monochromeColors.foreground : "none")
+        .attr("stroke-width", this.isMonochrome ? 1 : 0);
         
       // Add axes
       g.append("g")
@@ -179,8 +257,10 @@ class DataroomChart extends DataroomElement {
       .attr("cx", d => xScale(d.x))
       .attr("cy", d => yScale(d.y))
       .attr("r", this.attrs.radius || 5)
-      .attr("fill", this.getColor())
-      .attr("opacity", 0.7);
+      .attr("fill", this.isMonochrome ? "black" : this.getColor())
+      .attr("stroke", this.isMonochrome ? "none" : "none")
+      .attr("stroke-width", 0)
+      .attr("opacity", this.isMonochrome ? 1 : 0.7);
     
     // Add axes
     g.append("g")
@@ -205,7 +285,7 @@ class DataroomChart extends DataroomElement {
     }
     const width = parseInt(this.attrs.width) || 400;
     const height = parseInt(this.attrs.height) || 400;
-    const radius = Math.min(width, height) / 2;
+    const radius = (Math.min(width, height) / 2 - 40) * 0.6; // Balanced size, leave space for labels
     const innerRadius = radius * 0.5; // Creates the donut hole
     
     // Update SVG dimensions
@@ -217,21 +297,34 @@ class DataroomChart extends DataroomElement {
     const g = svg.append("g")
       .attr("transform", `translate(${width/2},${height/2})`);
     
-    // Color scale using CSS variables
-    const colorPalette = this.getColorPalette();
-    const color = d3.scaleOrdinal()
+    // Get foreground color for text
+    const computedStyle = getComputedStyle(this);
+    const foregroundColor = computedStyle.color || 'currentColor';
+    
+    // Fill scale - patterns for monochrome, colors otherwise
+    const fillValues = [];
+    for (let i = 0; i < data.length; i++) {
+      fillValues.push(this.getFillValue(i, data[i].color));
+    }
+    
+    const fill = d3.scaleOrdinal()
       .domain(data.map(d => d.label))
-      .range(colorPalette);
+      .range(fillValues);
     
     // Pie layout
     const pie = d3.pie()
       .value(d => d.value)
       .sort(null);
     
-    // Arc generator
+    // Arc generator for slices
     const arc = d3.arc()
       .innerRadius(innerRadius)
       .outerRadius(radius);
+    
+    // Arc generator for label positioning (outside the chart)
+    const outerArc = d3.arc()
+      .innerRadius(radius * 1.15)
+      .outerRadius(radius * 1.15);
     
     // Create arcs
     const arcs = g.selectAll(".arc")
@@ -242,18 +335,22 @@ class DataroomChart extends DataroomElement {
     // Add paths
     arcs.append("path")
       .attr("d", arc)
-      .attr("fill", d => color(d.data.label))
-      .attr("stroke", "white")
+      .attr("fill", d => fill(d.data.label))
+      .attr("stroke", this.isMonochrome ? this.monochromeColors.foreground : "white")
       .attr("stroke-width", 2);
     
     // Add labels if requested
     if (this.attrs.labels !== 'false') {
       arcs.append("text")
-        .attr("transform", d => `translate(${arc.centroid(d)})`)
+        .attr("transform", d => `translate(${outerArc.centroid(d)})`)
         .attr("dy", "0.35em")
-        .attr("text-anchor", "middle")
+        .attr("text-anchor", d => {
+          // Adjust text-anchor based on label position to prevent overlap
+          const midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+          return (midAngle > Math.PI ? "end" : "start");
+        })
         .attr("font-size", "12px")
-        .attr("fill", "white")
+        .attr("fill", foregroundColor)
         .text(d => d.data.label);
     }
   }
