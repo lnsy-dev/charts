@@ -32,8 +32,76 @@
   </style>
 </head>
 <body>
+  <h1>DataRoom Charts Demo</h1>
+  <p>Comprehensive examples of D3 charts using CSS variables for theming</p>
 
-  <example-component></example-component>
+  <h2>Bar Charts</h2>
+  
+  <h3>Quarterly Sales Performance (Vertical)</h3>
+  <dataroom-chart type="bar" width="600" height="400" orientation="vertical">
+  [{"label":"Q1 2024","value":125000},{"label":"Q2 2024","value":156000},{"label":"Q3 2024","value":189000},{"label":"Q4 2024","value":203000},{"label":"Q1 2025","value":178000}]
+  </dataroom-chart>
+
+  <h3>Department Budgets (Horizontal)</h3>
+  <dataroom-chart type="bar" width="700" height="350" orientation="horizontal">
+  [{"label":"Engineering","value":850000},{"label":"Sales","value":620000},{"label":"Marketing","value":480000},{"label":"HR","value":320000},{"label":"Operations","value":290000},{"label":"Finance","value":180000}]
+  </dataroom-chart>
+
+  <h3>Monthly Website Traffic (Multi-color)</h3>
+  <dataroom-chart type="bar" width="800" height="400">
+  [{"label":"Jan","value":45200},{"label":"Feb","value":52100},{"label":"Mar","value":48900},{"label":"Apr","value":61500},{"label":"May","value":58700},{"label":"Jun","value":67300},{"label":"Jul","value":72800},{"label":"Aug","value":69400},{"label":"Sep","value":63200},{"label":"Oct","value":71600},{"label":"Nov","value":78900},{"label":"Dec","value":82300}]
+  </dataroom-chart>
+
+  <h2>Scatter Plots</h2>
+  
+  <h3>Product Performance: Price vs Sales</h3>
+  <dataroom-chart type="scatter" width="600" height="400" radius="4">
+  [{"x":29.99,"y":1250},{"x":49.99,"y":980},{"x":79.99,"y":750},{"x":99.99,"y":620},{"x":129.99,"y":480},{"x":159.99,"y":390},{"x":199.99,"y":280},{"x":249.99,"y":220},{"x":299.99,"y":180},{"x":399.99,"y":120},{"x":499.99,"y":85},{"x":699.99,"y":45},{"x":899.99,"y":25},{"x":1199.99,"y":15}]
+  </dataroom-chart>
+
+  <h3>Employee Satisfaction: Years vs Rating</h3>
+  <dataroom-chart type="scatter" width="600" height="400" radius="5">
+  [{"x":0.5,"y":4.2},{"x":1.2,"y":4.1},{"x":2.8,"y":4.5},{"x":3.5,"y":4.3},{"x":4.1,"y":4.7},{"x":5.2,"y":4.6},{"x":6.8,"y":4.8},{"x":7.5,"y":4.4},{"x":8.2,"y":4.9},{"x":9.1,"y":4.7},{"x":10.5,"y":4.8},{"x":12.3,"y":4.6},{"x":15.8,"y":4.9},{"x":18.2,"y":4.5},{"x":22.1,"y":4.7}]
+  </dataroom-chart>
+
+  <h3>Server Response Times</h3>
+  <dataroom-chart type="scatter" width="700" height="400" radius="3">
+  [{"x":1,"y":45},{"x":2,"y":52},{"x":3,"y":48},{"x":4,"y":61},{"x":5,"y":58},{"x":6,"y":67},{"x":7,"y":72},{"x":8,"y":69},{"x":9,"y":63},{"x":10,"y":71},{"x":11,"y":78},{"x":12,"y":82},{"x":13,"y":75},{"x":14,"y":88},{"x":15,"y":92},{"x":16,"y":86},{"x":17,"y":94},{"x":18,"y":89},{"x":19,"y":97},{"x":20,"y":103},{"x":21,"y":108},{"x":22,"y":112},{"x":23,"y":118},{"x":24,"y":125}]
+  </dataroom-chart>
+
+  <h2>Donut Charts</h2>
+  
+  <h3>Revenue by Product Category</h3>
+  <dataroom-chart type="donut" width="500" height="500" labels="true">
+  [{"label":"Software","value":2400000},{"label":"Hardware","value":1800000},{"label":"Services","value":1200000},{"label":"Training","value":600000},{"label":"Support","value":400000}]
+  </dataroom-chart>
+
+  <h3>Marketing Channel Performance</h3>
+  <dataroom-chart type="donut" width="450" height="450" labels="true">
+  [{"label":"Social Media","value":35},{"label":"Email","value":28},{"label":"SEO","value":22},{"label":"PPC","value":18},{"label":"Direct","value":15},{"label":"Referral","value":12},{"label":"Print","value":5}]
+  </dataroom-chart>
+
+  <h3>Customer Satisfaction Distribution</h3>
+  <dataroom-chart type="donut" width="400" height="400" labels="true">
+  [{"label":"Very Satisfied","value":45},{"label":"Satisfied","value":32},{"label":"Neutral","value":15},{"label":"Dissatisfied","value":6},{"label":"Very Dissatisfied","value":2}]
+  </dataroom-chart>
+
+  <h3>Technology Stack Usage</h3>
+  <dataroom-chart type="donut" width="480" height="480" labels="false">
+  [{"label":"JavaScript","value":42},{"label":"Python","value":28},{"label":"Java","value":18},{"label":"C#","value":12},{"label":"PHP","value":8},{"label":"Ruby","value":6},{"label":"Go","value":4},{"label":"Rust","value":2}]
+  </dataroom-chart>
+
+  <h2>Mixed Data Examples</h2>
+  
+  <h3>Server Performance Metrics</h3>
+  <dataroom-chart type="scatter" width="650" height="400">
+  [{"x":100,"y":0.2},{"x":200,"y":0.4},{"x":350,"y":0.8},{"x":500,"y":1.2},{"x":750,"y":2.1},{"x":1000,"y":3.5},{"x":1250,"y":5.2},{"x":1500,"y":7.8},{"x":1750,"y":11.2},{"x":2000,"y":15.8}]
+  </dataroom-chart>
+
+  <h3>Annual Growth by Region</h3>
+  <dataroom-chart type="bar" width="700" height="350">
+  [{"label":"North America","value":12.5},{"label":"Europe","value":8.3},{"label":"Asia Pacific","value":15.7},{"label":"Latin America","value":6.2},{"label":"Middle East","value":9.8},{"label":"Africa","value":11.4}]
+  </dataroom-chart>
 
 </body>
 </html>
