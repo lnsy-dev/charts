@@ -1,11 +1,11 @@
 {
   "name": "dataroom-charts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Vanilla HTML Components for generating charts.",
-  "main": "dist/main.js",
+  "main": "dist/dataroom-charts.min.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lnsy-dev/pochade-js.git"
+    "url": "git+https://github.com/DATAROOM-NETWORK/dataroom-charts"
   },
   "keywords": [
     "Context",
@@ -16,9 +16,9 @@
   "author": "LNSY",
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/lnsy-dev/pochade-js/issues"
+    "url": "https://github.com/DATAROOM-NETWORK/dataroom-charts/issues"
   },
-  "homepage": "https://github.com/lnsy-dev/pochade-js#readme",
+  "homepage": "https://github.com/DATAROOM-NETWORK/dataroom-charts#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "rspack serve",
