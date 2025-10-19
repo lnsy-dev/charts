@@ -4,6 +4,14 @@ import { createPattern, getPatternByIndex } from './monochrome-patterns.js';
 
 
 class DataroomChart extends DataroomElement {
+  async getJSON(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  }
+
   async initialize(){
 
     const svgNamespace = "http://www.w3.org/2000/svg";
@@ -36,20 +44,20 @@ class DataroomChart extends DataroomElement {
     switch(this.attrs.type){
     case "bar":
     case "barchart":
-      this.renderBarChart();
+      await this.renderBarChart();
       break;
     case "scatter":
     case "scatterchart":
-      this.renderScatterPlot();
+      await this.renderScatterPlot();
       break;
     case "line":
     case "line-graph":
     case "linegraph":
-      this.renderLineGraph();
+      await this.renderLineGraph();
       break;
     case "donut":
     case "donutchart":
-      this.renderDonutChart();
+      await this.renderDonutChart();
       break;
     default:
       this.renderError("No Chart Type Set");
@@ -127,8 +135,8 @@ class DataroomChart extends DataroomElement {
    * Supports both horizontal and vertical orientations
    * @returns {void}
    */
-  renderBarChart(){
-    const data = this.getData();
+  async renderBarChart(){
+    const data = await this.getData();
     if (!data || data.length === 0) {
       this.renderError("No data provided for bar chart");
       return;
@@ -224,8 +232,8 @@ class DataroomChart extends DataroomElement {
    * Supports x,y coordinates with optional r (radius) and c (color/category) dimensions
    * @returns {void}
    */
-  renderScatterPlot(){
-    const data = this.getData();
+  async renderScatterPlot(){
+    const data = await this.getData();
     if (!data || data.length === 0) {
       this.renderError("No data provided for scatter plot");
       return;
@@ -345,8 +353,8 @@ class DataroomChart extends DataroomElement {
    * Supports x,y coordinates with optional r (radius) and c (color/category) dimensions
    * @returns {void}
    */
-  renderLineGraph(){
-    const data = this.getData();
+  async renderLineGraph(){
+    const data = await this.getData();
     if (!data || data.length === 0) {
       this.renderError("No data provided for line graph");
       return;
@@ -498,8 +506,8 @@ class DataroomChart extends DataroomElement {
    * Renders a donut chart using D3
    * @returns {void}
    */
-  renderDonutChart(){
-    const data = this.getData();
+  async renderDonutChart(){
+    const data = await this.getData();
     if (!data || data.length === 0) {
       this.renderError("No data provided for donut chart");
       return;
@@ -660,7 +668,7 @@ class DataroomChart extends DataroomElement {
    * Gets and parses chart data from attributes or content
    * @returns {Array} Parsed chart data
    */
-  getData() {
+  async getData() {
     let data = [];
     
     // Try to get data from data attribute first
@@ -672,6 +680,15 @@ class DataroomChart extends DataroomElement {
         return [];
       }
     } 
+    // Try to get data from src attribute
+    else if (this.attrs.src) {
+      try {
+        data = await this.getJSON(this.attrs.src);
+      } catch (e) {
+        this.log(`Error fetching data from ${this.attrs.src}: ${e.message}`);
+        return [];
+      }
+    }
     // Fallback to parsing content as JSON
     else if (this.content && this.content.trim()) {
       try {

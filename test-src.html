@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dataroom Chart with src</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="styles/variables.css">
+</head>
+<body>
+    <h1>Testing dataroom-chart with <code>src</code> attribute</h1>
+    <dataroom-chart type="bar" src="./data.json" width="600" height="400"></dataroom-chart>
+
+    <p><b>Instructions:</b></p>
+    <ol>
+        <li>Make sure you have built the project (e.g., with <code>npm run build</code>). This will create the <code>dist/main.js</code> file.</li>
+        <li>Run a simple web server from your project root. For example, if you have Python 3, run: <code>python3 -m http.server</code></li>
+        <li>Open your browser and go to <a href="http://localhost:8000/test-src.html">http://localhost:8000/test-src.html</a> to see the chart.</li>
+    </ol>
+    
+    <script src="./dist/main.js"></script>
+</body>
+</html>

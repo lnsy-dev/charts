@@ -109,8 +109,11 @@ The main component is `<dataroom-chart>`, a custom HTML element that renders var
 | `min-radius` | Minimum bubble size | 2 | Scatter, Line |
 | `max-radius` | Maximum bubble size | 15 | Scatter, Line |
 | `data` | JSON data as attribute | Content | All |
+| `src` | URL to an external JSON data file | `null` | All |
 
 ### Data Formats
+
+Data can be provided to the chart in three ways. If multiple sources are provided, the priority is as follows: `data` attribute > `src` attribute > element content.
 
 #### Via Element Content (Recommended)
 ```html
@@ -125,6 +128,14 @@ The main component is `<dataroom-chart>`, a custom HTML element that renders var
 #### Via Data Attribute
 ```html
 <dataroom-chart type="bar" data='[{"label":"A","value":30},{"label":"B","value":80}]'></dataroom-chart>
+```
+
+#### Via External JSON File (`src`)
+
+You can load data from an external JSON file by providing a URL to the `src` attribute.
+
+```html
+<dataroom-chart type="bar" src="path/to/your/data.json"></dataroom-chart>
 ```
 
 ### Monochrome Mode
