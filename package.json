@@ -1,5 +1,5 @@
 {
-  "name": "dataroom-charts",
+  "name": "@lnsy/charts",
   "version": "0.1.0",
   "description": "Vanilla HTML Components for generating charts.",
   "main": "dist/dataroom-charts.min.js",
