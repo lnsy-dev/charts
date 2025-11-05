@@ -1,11 +1,11 @@
 {
   "name": "dataroom-charts",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Vanilla HTML Components for generating charts.",
   "main": "dist/dataroom-charts.min.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DATAROOM-NETWORK/dataroom-charts"
+    "url": "git+https://github.com/lnsy-dev/charts"
   },
   "keywords": [
     "Context",
@@ -16,9 +16,9 @@
   "author": "LNSY",
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/DATAROOM-NETWORK/dataroom-charts/issues"
+    "url": "https://github.com/lnsy-dev/charts/issues"
   },
-  "homepage": "https://github.com/DATAROOM-NETWORK/dataroom-charts#readme",
+  "homepage": "https://github.com/lnsy-dev/charts#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "rspack serve",
